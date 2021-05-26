@@ -19,6 +19,8 @@ class Creature(object):
 class Orthrus(Creature):
 
     def __init__(self, a_left: Creature, a_right: Creature):
+        '''Left or right can be another Orthrus object or Cerebus object or a Head creature object
+        or even Empty'''
         self.left = a_left
         self.right = a_right
 
@@ -37,7 +39,8 @@ class Orthrus(Creature):
             return left + " " + right  # Combine the strings and return
 
     def search(self, value: str) -> bool:
-        if (self.left == None and self.right == None):  # If Orthrus Object contains nothing
+        if (self.left == None and self.right == None):
+            # If Orthrus Object contains nothing in Left and Right nodes
             return False
         else:
             left_value = False
@@ -53,12 +56,14 @@ class Orthrus(Creature):
 class Cerberus(Creature):
 
     def __init__(self, a_left: Creature, a_middle: Creature, a_right: Creature):
+        '''Left or Right or Middle; can be another Orthrus or Cerebus or a Head creature or even Empty'''
         self.left = a_left
         self.middle = a_middle
         self.right = a_right
 
     def __str__(self) -> str:
-        if self.left == None and self.middle == None and self.right == None:  # Return empty String is Cerebus Object has no left or middle or right object
+        if self.left == None and self.middle == None and self.right == None:
+            # Return empty String if Cerebus Object has no left or middle or right object
             return ""
         else:
             left = ""  # Default left, middle and right strings are empty
@@ -67,15 +72,16 @@ class Cerberus(Creature):
 
             if self.left != None:  # If Left node is not empty
                 left = self.left.__str__()
-            if self.middle != None: # If Middle node is not empty
+            if self.middle != None:  # If Middle node is not empty
                 middle = self.middle.__str__()
             if self.right != None:  # If Right node is not empty
                 right = self.right.__str__()
 
-            return left + " " + middle + " " + right #Combine strings and return
+            return left + " " + middle + " " + right  # Combine strings and return
 
     def search(self, value: str) -> bool:
-        if (self.left == None and self.middle == None and self.right == None):  # If Cerebus Object contains no objects in left, middle, right nodes
+        if (self.left == None and self.middle == None and self.right == None):
+            # If Cerebus Object contains no objects in left, middle, right nodes
             return False
         else:
 
@@ -83,14 +89,15 @@ class Cerberus(Creature):
             middle_value = False  # Default Value
             right_value = False  # Default Value
 
-            if self.left != None: # Search left node if not empty
+            if self.left != None:  # Search left node if not empty
                 left_value = self.left.search(value)
-            if self.middle != None: # Search middle node if not empty
+            if self.middle != None:  # Search middle node if not empty
                 middle_value = self.middle.search(value)
-            if self.right != None: # Search right node if not empty
+            if self.right != None:  # Search right node if not empty
                 right_value = self.right.search(value)
 
-            return left_value | middle_value | right_value  # If left or middle or right values are true, return True. Otherwise, return False
+            # If left or middle or right values are true, return True. Otherwise, return False
+            return left_value | middle_value | right_value
 
 
 class Head(Creature):
